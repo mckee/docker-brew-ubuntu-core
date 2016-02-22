@@ -9,7 +9,15 @@ if [ ${#versions[@]} -eq 0 ]; then
 fi
 versions=( "${versions[@]%/}" )
 
-arch="$(dpkg --print-architecture)"
+case "$(uname -m)" in
+"x86_64")
+  arch="amd64"
+  ;;
+"armv7l")
+  arch="armhf"
+  ;;
+esac
+
 for v in "${versions[@]}"; do
 	(
 		cd "$v"
